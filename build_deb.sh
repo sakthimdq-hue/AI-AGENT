@@ -56,7 +56,8 @@ Comment=SakthiDev Cyber OS - Autonomous Software Engineer Operating System
 Exec=/usr/bin/sakthidev-studio
 Icon=sakthidev-studio
 Terminal=false
-Categories=Development;IDE;ArtificialIntelligence;Utility;
+Categories=Development;Utility;
+Keywords=ai;agent;sakthi;sakthidev;studio;code;engineer;chat;gemini;s;
 StartupNotify=true
 StartupWMClass=google-chrome
 Actions=RestartService;StopService;ViewLogs;
@@ -74,9 +75,15 @@ Name=View Service Logs
 Exec=gnome-terminal -- journalctl --user -u sakthidev-studio -f
 EOF
 
-# 5. Copy Icon
+# 5. Copy Scalable and Multi-Resolution PNG Icons
 if [ -f "$PROJECT_DIR/static/icon.svg" ]; then
     cp "$PROJECT_DIR/static/icon.svg" "$BUILD_ROOT/usr/share/icons/hicolor/scalable/apps/sakthidev-studio.svg"
+    for size in 32 48 64 128 256 512; do
+        mkdir -p "$BUILD_ROOT/usr/share/icons/hicolor/${size}x${size}/apps"
+        convert -background none "$PROJECT_DIR/static/icon.svg" -resize ${size}x${size} "$BUILD_ROOT/usr/share/icons/hicolor/${size}x${size}/apps/sakthidev-studio.png" 2>/dev/null || true
+    done
+    mkdir -p "$BUILD_ROOT/usr/share/pixmaps"
+    convert -background none "$PROJECT_DIR/static/icon.svg" -resize 512x512 "$BUILD_ROOT/usr/share/pixmaps/sakthidev-studio.png" 2>/dev/null || true
 fi
 
 # 6. Create binary launcher in /usr/bin/sakthidev-studio
