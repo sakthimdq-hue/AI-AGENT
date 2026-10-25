@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="oniBg" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#1a0b1e"/>
+      <stop offset="50%" stop-color="#0b040e"/>
+      <stop offset="100%" stop-color="#020004"/>
+    </radialGradient>
+    <linearGradient id="neonRedPink" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff0055"/>
+      <stop offset="100%" stop-color="#9d4edd"/>
+    </linearGradient>
+    <linearGradient id="cyberCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f6ff"/>
+      <stop offset="100%" stop-color="#3a86ff"/>
+    </linearGradient>
+    <filter id="oniGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      @keyframes visorSweep {
+        0%, 100% { filter: drop-shadow(0 0 10px #ff0055); }
+        50% { filter: drop-shadow(0 0 24px #00f6ff); }
+      }
+      @keyframes floatMask {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-6px); }
+      }
+      .samurai-mask { transform-origin: 256px 256px; animation: floatMask 3s ease-in-out infinite; }
+      .visor { animation: visorSweep 2s ease-in-out infinite alternate; }
+    </style>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#oniBg)" stroke="#3f104d" stroke-width="4"/>
+  <circle cx="256" cy="256" r="170" fill="none" stroke="#ff0055" stroke-width="2" stroke-dasharray="16 16" opacity="0.3"/>
+  <g class="samurai-mask" filter="url(#oniGlow)">
+    <!-- Cyber Oni Horns (Left & Right Antennae) -->
+    <polygon points="175,180 120,60 210,135" fill="url(#neonRedPink)"/>
+    <polygon points="337,180 392,60 302,135" fill="url(#neonRedPink)"/>
+    <!-- Kabuto Center Crest -->
+    <polygon points="256,65 278,135 256,165 234,135" fill="url(#cyberCyan)"/>
+    <circle cx="256" cy="115" r="8" fill="#ffffff"/>
+    <!-- Helmet Brow Armor -->
+    <polygon points="160,165 256,190 352,165 320,135 256,150 192,135" fill="#161224" stroke="#ff0055" stroke-width="3"/>
+    <!-- Glowing Tactical HUD Visor -->
+    <g class="visor">
+      <polygon points="175,210 256,230 337,210 325,250 256,268 187,250" fill="url(#neonRedPink)"/>
+      <line x1="200" y1="230" x2="312" y2="230" stroke="#ffffff" stroke-width="3"/>
+    </g>
+    <!-- Cheek & Jaw Armor Plates -->
+    <polygon points="187,250 160,310 205,370 256,395 210,315" fill="#12091f" stroke="#00f6ff" stroke-width="2.5"/>
+    <polygon points="325,250 352,310 307,370 256,395 302,315" fill="#12091f" stroke="#00f6ff" stroke-width="2.5"/>
+    <!-- Cyber Mouth Ventilator Grill / Fangs -->
+    <polygon points="220,315 256,335 292,315 280,365 256,380 232,365" fill="#080311" stroke="#ff0055" stroke-width="2"/>
+    <line x1="236" y1="330" x2="276" y2="330" stroke="#00f6ff" stroke-width="2"/>
+    <line x1="240" y1="345" x2="272" y2="345" stroke="#00f6ff" stroke-width="2"/>
+    <line x1="244" y1="360" x2="268" y2="360" stroke="#00f6ff" stroke-width="2"/>
+  </g>
+</svg>

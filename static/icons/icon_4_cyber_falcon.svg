@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="falconBg" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#051923"/>
+      <stop offset="50%" stop-color="#001219"/>
+      <stop offset="100%" stop-color="#00080d"/>
+    </radialGradient>
+    <linearGradient id="wingGradLeft" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00f6ff"/>
+      <stop offset="50%" stop-color="#0077b6"/>
+      <stop offset="100%" stop-color="#03045e"/>
+    </linearGradient>
+    <linearGradient id="wingGradRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f6ff"/>
+      <stop offset="50%" stop-color="#0077b6"/>
+      <stop offset="100%" stop-color="#03045e"/>
+    </linearGradient>
+    <linearGradient id="thrustGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffb703"/>
+      <stop offset="50%" stop-color="#fb8500"/>
+      <stop offset="100%" stop-color="#d90429"/>
+    </linearGradient>
+    <filter id="falconGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      @keyframes wingFlap {
+        0%, 100% { transform: scale(1) translateY(0); }
+        50% { transform: scale(1.03) translateY(-8px); }
+      }
+      @keyframes thrusterPulse {
+        0%, 100% { opacity: 0.8; transform: scaleY(1); }
+        50% { opacity: 1; transform: scaleY(1.2); }
+      }
+      .falcon-body { transform-origin: 256px 256px; animation: wingFlap 2.8s ease-in-out infinite; }
+      .thruster { transform-origin: 256px 330px; animation: thrusterPulse 1.2s ease-in-out infinite alternate; }
+    </style>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#falconBg)" stroke="#0a3a40" stroke-width="4"/>
+  <circle cx="256" cy="256" r="175" fill="none" stroke="#00f6ff" stroke-width="2" stroke-dasharray="24 16" opacity="0.25"/>
+  <g class="falcon-body" filter="url(#falconGlow)">
+    <!-- Left Wing Feathers / Blades -->
+    <polygon points="256,180 160,110 90,175 180,215" fill="url(#wingGradLeft)"/>
+    <polygon points="230,215 130,175 60,250 165,270" fill="url(#wingGradLeft)"/>
+    <polygon points="210,265 110,265 50,335 155,320" fill="url(#wingGradLeft)"/>
+    <!-- Right Wing Feathers / Blades -->
+    <polygon points="256,180 352,110 422,175 332,215" fill="url(#wingGradRight)"/>
+    <polygon points="282,215 382,175 452,250 347,270" fill="url(#wingGradRight)"/>
+    <polygon points="302,265 402,265 462,335 357,320" fill="url(#wingGradRight)"/>
+    <!-- Central Jet Thruster Exhaust -->
+    <g class="thruster">
+      <polygon points="240,320 256,410 272,320" fill="url(#thrustGrad)"/>
+      <polygon points="248,320 256,380 264,320" fill="#ffffff"/>
+    </g>
+    <!-- Falcon Torso / Fuselage -->
+    <polygon points="256,170 295,240 280,330 256,355 232,330 217,240" fill="#0d2137" stroke="#00f6ff" stroke-width="3"/>
+    <!-- Robotic Head & Beak -->
+    <polygon points="256,100 280,150 256,180 232,150" fill="#132a45" stroke="#00f6ff" stroke-width="2"/>
+    <polygon points="256,140 270,175 256,195 242,175" fill="#ffb703"/>
+    <!-- Glowing Visor Eye -->
+    <polygon points="240,145 256,155 272,145 256,140" fill="#00f6ff"/>
+    <circle cx="256" cy="147" r="4" fill="#ffffff"/>
+    <!-- Core Reactor Gem -->
+    <circle cx="256" cy="265" r="18" fill="#ffb703" filter="url(#falconGlow)"/>
+    <circle cx="256" cy="265" r="9" fill="#ffffff"/>
+  </g>
+</svg>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cyber-dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SakthiDev Studio - Autonomous Engineering Console</title>
+  <meta name="description" content="SakthiDev Cyber OS - Autonomous Software Engineer Operating System. Multi-Session Mission Archives, Dark/Light Themes, Dynamic Live Wallpapers & Full Laptop Access.">
+  <link rel="icon" type="image/svg+xml" href="/static/icon.svg">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+
+  <!-- Dynamic Live Background Layers -->
+  <canvas id="bg-canvas" class="bg-canvas-layer"></canvas>
+  <div id="bg-image-layer" class="bg-image-layer"></div>
+  <video id="bg-video-layer" class="bg-video-layer" autoplay loop muted playsinline style="display: none;"></video>
+  <div class="cyber-grid-overlay"></div>
+  <div class="bg-vignette"></div>
+
+  <!-- Futuristic Cyber Boot Splash Loader (Zero-lag, 60fps CSS animated) -->
+  <div id="cyber-boot-splash" class="cyber-boot-splash">
+    <div class="splash-content">
+      <div class="splash-logo-wrapper">
+        <div class="splash-reactor-rings">
+          <div class="reactor-ring ring-1"></div>
+          <div class="reactor-ring ring-2"></div>
+          <div class="reactor-ring ring-3"></div>
+        </div>
+        <img src="/static/icon.svg" class="splash-logo-svg" alt="SakthiDev Cyber Core">
+      </div>
+      <div class="splash-title-row">
+        <h2>SAKTHIDEV <span class="splash-neon">STUDIO</span></h2>
+        <div class="splash-version">v1.0.0 // QUANTUM CORE ACTIVE</div>
+      </div>
+      <div class="splash-loader-bar">
+        <div class="splash-loader-progress"></div>
+      </div>
+      <div class="splash-telemetry" id="splash-telemetry">INITIALIZING NEURAL RUNTIME... [ONLINE]</div>
+    </div>
+  </div>
+
+  <!-- Top System Cockpit Navigation (Linear / Vercel Grade Layout) -->
+  <header class="top-nav">
+    <!-- Left: Brand & History Toggle -->
+    <div class="nav-left">
+      <button class="btn-cyber-icon" id="btn-toggle-history" title="Toggle Mission Archives">
+        <span>🗂️</span>
+      </button>
+
+      <div class="brand-section">
+        <div class="brand-logo-container">
+          <div class="brand-logo-glow"></div>
+          <div class="brand-logo">
+            <img src="/static/icon.svg" class="nav-logo-svg" alt="SakthiDev Logo">
+          </div>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title-row">
+            <h1>SAKTHIDEV <span class="brand-sub">STUDIO</span></h1>
+            <span class="system-status-indicator"><span class="pulse-dot"></span> LIVE</span>
+          </div>
+          <div class="badge-pill">AUTONOMOUS AI ENGINEER</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center: Active Laptop Folder Selector with Quick Presets -->
+    <div class="nav-center">
+      <div class="workspace-selector" title="Active Laptop Target Path">
+        <span class="cyber-terminal-icon">💻</span>
+        <input type="text" id="ws-input" class="workspace-input" placeholder="/home/sakthi/..." spellcheck="false">
+        <button id="btn-switch-ws" class="workspace-btn">Set</button>
+        
+        <select id="quick-preset-select" class="preset-dropdown" title="Quick Jump Locations">
+          <option value="">Jump To...</option>
+          <option value="/home/sakthi/Downloads">📂 ~/Downloads</option>
+          <option value="/home/sakthi/Documents">📂 ~/Documents</option>
+          <option value="/home/sakthi/Desktop">📂 ~/Desktop</option>
+          <option value="/home/sakthi/Documents/AI AGENT">📂 ~/AI AGENT Workspace</option>
+          <option value="/home/sakthi">🏠 ~/ (Home)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Right Controls: Wallpaper Picker, Audio SFX, Mode, Files & Settings -->
+    <div class="nav-right">
+      <!-- Wallpaper & Canvas Customizer Modal Toggle -->
+      <button id="btn-open-wallpapers" class="btn-icon-soft" title="Customize Background, Wallpapers & Live Canvas">
+        <span>🎨</span> Wallpapers
+      </button>
+
+      <!-- Audio SFX Toggle -->
+      <button id="btn-toggle-sfx" class="btn-icon-soft active" title="Toggle Cyber Audio Feedback">
+        <span id="sfx-icon">🔊</span>
+      </button>
+
+      <!-- Mode Switcher -->
+      <div class="mode-toggle-group">
+        <button id="toggle-cloud-mode" class="mode-btn active" title="Google Gemini Free Cloud">
+          <span>☁️</span> Cloud
+        </button>
+        <button id="toggle-offline-mode" class="mode-btn" title="Local Ollama Offline">
+          <span>⚡</span> Offline
+        </button>
+      </div>
+
+      <!-- File Drawer Toggle -->
+      <button class="btn-icon-soft" id="btn-toggle-explorer" title="Toggle Laptop File Explorer">
+        <span>📂</span>
+      </button>
+
+      <!-- Settings Button -->
+      <button class="btn-icon-soft" id="btn-open-settings" title="Settings & Memory DB">
+        <span>⚙</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Console Stage -->
+  <div class="studio-main-container">
+    
+    <!-- LEFT: Clickable Mission History Sidebar -->
+    <aside class="history-sidebar" id="history-sidebar">
+      <div class="history-sidebar-header">
+        <div class="history-header-title">
+          <span>🗂️</span> MISSION ARCHIVES
+        </div>
+        <button id="btn-new-mission" class="btn-new-mission" title="Initiate New Autonomous Mission">
+          <span>+</span> NEW MISSION
+        </button>
+      </div>
+
+      <!-- Quick Search Filter -->
+      <div class="history-search-container">
+        <input type="text" id="mission-search-input" class="mission-search-input" placeholder="Search mission history...">
+      </div>
+
+      <!-- Mission Items List -->
+      <div class="mission-list" id="mission-list">
+        <div class="mission-loading">Loading saved missions...</div>
+      </div>
+
+      <div class="history-footer">
+        <button id="btn-clear-all-sessions" class="btn-clear-all-sessions" title="Wipe All Mission Archives">
+          <span>🗑️</span> Clear All History
+        </button>
+      </div>
+    </aside>
+
+    <!-- CENTER: Command Stage & Neural Stream Deck -->
+    <main class="chat-deck">
+      <!-- Live Cyber Telemetry Strip -->
+      <div class="telemetry-strip">
+        <div class="telemetry-item">
+          <span class="telemetry-label">SESSION:</span>
+          <span class="telemetry-val" id="active-mission-label">CURRENT ACTIVE SESSION</span>
+        </div>
+        <div class="telemetry-item">
+          <span class="telemetry-label">CORE:</span>
+          <span class="telemetry-val" id="telemetry-model-label">GEMINI FLASH-LITE</span>
+        </div>
+        <div class="telemetry-item">
+          <span class="telemetry-label">SQLITE MEMORY:</span>
+          <span class="telemetry-val" id="db-mem-count">ACTIVE</span>
+        </div>
+        <div class="telemetry-item">
+          <span class="telemetry-label">ACCESS:</span>
+          <span class="telemetry-val" style="color: var(--accent-emerald);">FULL LAPTOP SYSTEM</span>
+        </div>
+      </div>
+
+      <!-- Live Neural Activity HUD Bar -->
+      <div class="agent-hud" id="agent-hud">
+        <div class="hud-left">
+          <div class="neural-spinner">
+            <div class="neural-ring"></div>
+            <div class="neural-core"></div>
+          </div>
+          <div class="hud-activity-text">
+            <span id="hud-status-text">SakthiDev is analyzing task & planning execution...</span>
+            <span class="hud-badge-tag" id="hud-active-tool">Step 1</span>
+          </div>
+        </div>
+        <div class="hud-right">
+          <span class="timer-pill" id="hud-timer">⏱ 00:00s</span>
+        </div>
+      </div>
+
+      <!-- Execution Stream & Dispatch Deck -->
+      <div class="chat-stream-viewport" id="chat-stream">
+        <!-- Initial Welcome Hero State -->
+        <div class="welcome-hero-card">
+          <div class="hero-top-row">
+            <div class="hero-avatar">⚡</div>
+            <div>
+              <h2 class="hero-greeting">Vanakkam da machan! 🔥</h2>
+              <p class="hero-subtext">Un personal AI Software Engineer <strong>SakthiDev</strong> ready. Enna doubt-naalum kelu, coding or tasks naalum sollu panniduvom!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Cyber Command Dock with Voice & Image Sensors -->
+      <div class="bottom-dock">
+        <!-- Image Preview Bar (Appears when image uploaded) -->
+        <div id="upload-preview-bar" class="upload-preview-bar" style="display: none;">
+          <div class="preview-item">
+            <img id="upload-preview-img" src="" alt="Upload Preview">
+            <span id="upload-preview-name">image.png</span>
+            <button id="btn-remove-upload" class="btn-remove-preview">✕</button>
+          </div>
+        </div>
+
+        <div class="dock-card">
+          <div class="dock-card-top-bar">
+            <span class="command-terminal-prompt">&gt;_ COMMAND INPUT</span>
+            <span class="ws-target-preview">TARGET: <code id="dock-ws-label">~/...</code></span>
+          </div>
+
+          <textarea 
+            id="prompt-input" 
+            class="prompt-textarea" 
+            placeholder="Talk naturally or dispatch mission: 'Machan build a portfolio app in Downloads', 'Search all PDF files', etc..."
+            rows="2"
+          ></textarea>
+
+          <div class="dock-footer">
+            <div class="input-actions-left">
+              <!-- Image / File Upload Button -->
+              <input type="file" id="file-upload-input" accept="image/*,.pdf,.txt,.py,.js,.json" style="display: none;">
+              <button id="btn-upload-file" class="action-dock-btn" title="Upload Image or Document (Multimodal Vision)">
+                <span>📎</span> Image / File
+              </button>
+
+              <!-- Voice Input Button (Microphone) -->
+              <button id="btn-voice-input" class="action-dock-btn" title="Click to speak (Voice Recognition)">
+                <span id="mic-icon">🎤</span> Voice Input
+              </button>
+            </div>
+
+            <div class="dock-footer-right">
+              <button id="btn-submit" class="btn-launch">
+                <span>DISPATCH MISSION</span>
+                <span>⚡</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT: Slide-over Workspace File Drawer -->
+    <aside class="right-drawer" id="right-drawer">
+      <div class="drawer-header">
+        <span>📂 Laptop File Explorer</span>
+        <div style="display: flex; gap: 0.4rem;">
+          <button id="btn-refresh-files" class="workspace-btn" style="padding: 0.15rem 0.5rem;" title="Refresh Files">↻</button>
+          <button id="btn-close-drawer" class="workspace-btn" style="padding: 0.15rem 0.5rem;" title="Close Drawer">✕</button>
+        </div>
+      </div>
+      <div class="file-browser-list" id="file-browser">
+        <div class="file-node">Loading files...</div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Wallpapers & Theme Customizer Modal (🎨) -->
+  <div class="modal-backdrop" id="wallpaper-modal">
+    <div class="modal-box wallpaper-modal-box">
+      <div class="modal-heading">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.25rem;">🎨</span>
+          <h2 style="font-size: 1.15rem; font-weight: 800;">Studio Themes & Live Wallpapers</h2>
+        </div>
+        <button class="workspace-btn" id="btn-close-wallpaper-modal">✕</button>
+      </div>
+
+      <!-- Color Theme Presets -->
+      <div class="form-group-custom">
+        <label>Theme Preset:</label>
+        <div class="theme-preset-grid">
+          <button class="theme-pick-btn active" data-set-theme="cyber-dark">
+            <span class="theme-dot" style="background: #38bdf8;"></span>
+            <span>Cyber Cyan</span>
+          </button>
+          <button class="theme-pick-btn" data-set-theme="obsidian-purple">
+            <span class="theme-dot" style="background: #a855f7;"></span>
+            <span>Obsidian Violet</span>
+          </button>
+          <button class="theme-pick-btn" data-set-theme="matrix-emerald">
+            <span class="theme-dot" style="background: #10b981;"></span>
+            <span>Matrix Emerald</span>
+          </button>
+          <button class="theme-pick-btn" data-set-theme="rogue-crimson">
+            <span class="theme-dot" style="background: #f43f5e;"></span>
+            <span>Rogue Crimson</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Wallpaper Presets -->
+      <div class="form-group-custom" style="margin-top: 1rem;">
+        <label>Live Background / Wallpaper:</label>
+        <div class="wallpaper-cards-grid">
+          <div class="wallpaper-card active" data-bg-type="image" data-bg-src="/static/wallpaper_cyber_city.jpg">
+            <img src="/static/wallpaper_cyber_city.jpg" alt="Cyber City">
+            <div class="wallpaper-name">🎮 Cyber City (Night)</div>
+          </div>
+          <div class="wallpaper-card" data-bg-type="image" data-bg-src="/static/wallpaper_anime_warrior.jpg">
+            <img src="/static/wallpaper_anime_warrior.jpg" alt="Anime Warrior">
+            <div class="wallpaper-name">⚔️ Cyber Rooftop</div>
+          </div>
+          <div class="wallpaper-card" data-bg-type="canvas" data-bg-src="neural-canvas">
+            <div class="wallpaper-canvas-preview">✦ ✦ ✦<br>Interactive Mesh</div>
+            <div class="wallpaper-name">🕸️ Live Neural Mesh</div>
+          </div>
+          <div class="wallpaper-card" data-bg-type="image" data-bg-src="/static/bg.jpg">
+            <img src="/static/bg.jpg" alt="Dark Studio">
+            <div class="wallpaper-name">🌌 Dark Nebula Studio</div>
+          </div>
+          <div class="wallpaper-card" data-bg-type="none" data-bg-src="">
+            <div class="wallpaper-canvas-preview" style="background: #090d16;">Minimal</div>
+            <div class="wallpaper-name">✨ Clean Minimalist</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom Upload / URL -->
+      <div class="form-group-custom" style="margin-top: 1rem;">
+        <label>Or Custom Wallpaper URL / Local File:</label>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="text" id="custom-bg-input" class="input-custom" placeholder="Paste image/video URL (e.g. https://... or /path/to/img.png)">
+          <button id="btn-apply-custom-bg" class="workspace-btn">Apply</button>
+        </div>
+      </div>
+
+      <!-- Opacity & Blur Controls -->
+      <div class="form-group-custom" style="margin-top: 1rem; display: flex; gap: 1rem;">
+        <div style="flex: 1;">
+          <label for="slider-bg-opacity">Background Opacity: <span id="label-bg-opacity">35%</span></label>
+          <input type="range" id="slider-bg-opacity" min="5" max="95" value="35" style="width: 100%;">
+        </div>
+        <div style="flex: 1;">
+          <label for="slider-bg-blur">Glass Blur: <span id="label-bg-blur">16px</span></label>
+          <input type="range" id="slider-bg-blur" min="0" max="40" value="16" style="width: 100%;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal (With Key Visibility Toggle & SQLite Memory Viewer) -->
+  <div class="modal-backdrop" id="settings-modal">
+    <div class="modal-box">
+      <div class="modal-heading">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.25rem;">⚙</span>
+          <h2 style="font-size: 1.15rem; font-weight: 800;">Studio & Model Settings</h2>
+        </div>
+        <button class="workspace-btn" id="btn-close-modal">✕</button>
+      </div>
+
+      <form id="settings-form">
+        <div class="form-group-custom">
+          <label for="provider-select">LLM Provider:</label>
+          <select id="provider-select" class="input-custom">
+            <option value="gemini">Google Gemini Free Tier (0-Cost Cloud, High Speed)</option>
+            <option value="ollama">Ollama (100% Offline / Local Open-Source, Unlimited)</option>
+            <option value="openai">OpenAI / Groq / OpenRouter</option>
+          </select>
+        </div>
+
+        <div class="form-group-custom" id="model-group">
+          <label for="model-input">Model Name:</label>
+          <input type="text" id="model-input" class="input-custom" value="gemini-3.1-flash-lite">
+          <span style="font-size: 0.72rem; color: var(--text-muted);">Recommended: gemini-3.1-flash-lite (Cloud) or qwen2.5-coder:7b (Ollama)</span>
+        </div>
+
+        <div class="form-group-custom" id="apikey-group">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label for="api-key-input">Gemini Free API Key:</label>
+            <button type="button" id="btn-toggle-key-view" style="background: none; border: none; color: var(--accent-cyan); font-size: 0.75rem; cursor: pointer;">👁 Show Key</button>
+          </div>
+          <input type="password" id="api-key-input" class="input-custom" placeholder="Paste your Gemini key here">
+          <span style="font-size: 0.72rem; color: var(--text-muted);">Saved securely in <code>config.json</code></span>
+        </div>
+
+        <div class="form-group-custom" id="baseurl-group" style="display: none;">
+          <label for="base-url-input">Ollama Local URL:</label>
+          <input type="text" id="base-url-input" class="input-custom" value="http://localhost:11434">
+        </div>
+
+        <!-- Database Memory Info Box -->
+        <div class="memory-info-box">
+          <div style="font-weight: 700; color: var(--accent-emerald); font-size: 0.82rem; margin-bottom: 0.3rem;">
+            💾 SQLite Long-Term Memory
+          </div>
+          <div style="font-size: 0.76rem; color: var(--text-muted); line-height: 1.4;">
+            Active Database: <code>memory.db</code><br>
+            Stores multi-session missions, terminal command history, and user preferences across restarts.
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button type="button" class="btn-icon-soft" id="btn-cancel-modal">Cancel</button>
+          <button type="submit" class="btn-launch" style="padding: 0.5rem 1.4rem;">Save Settings</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

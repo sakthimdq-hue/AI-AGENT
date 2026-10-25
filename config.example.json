@@ -1,0 +1,7 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "api_key": "",
+  "base_url": "http://localhost:11434",
+  "current_workspace": ""
+}

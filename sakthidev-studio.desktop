@@ -1,0 +1,25 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=SakthiDev Studio
+GenericName=Autonomous AI Software Engineer
+Comment=SakthiDev Cyber OS - Autonomous Software Engineer Operating System
+Exec=/home/sakthi/Documents/AI AGENT/open_app.sh
+Icon=/home/sakthi/Documents/AI AGENT/static/icon.svg
+Terminal=false
+Categories=Development;IDE;ArtificialIntelligence;Utility;
+StartupNotify=true
+StartupWMClass=google-chrome
+Actions=RestartService;StopService;ViewLogs;
+
+[Desktop Action RestartService]
+Name=Restart AI Agent Service
+Exec=systemctl --user restart sakthidev-studio
+
+[Desktop Action StopService]
+Name=Stop AI Agent Service
+Exec=systemctl --user stop sakthidev-studio
+
+[Desktop Action ViewLogs]
+Name=View Service Logs
+Exec=gnome-terminal -- journalctl --user -u sakthidev-studio -f

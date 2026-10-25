@@ -1,0 +1,17 @@
+{
+  "name": "SakthiDev Studio",
+  "short_name": "SakthiDev",
+  "description": "Autonomous AI Software Engineer Operating System",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050811",
+  "theme_color": "#00f0ff",
+  "icons": [
+    {
+      "src": "/static/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

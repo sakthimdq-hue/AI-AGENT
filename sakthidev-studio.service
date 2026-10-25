@@ -1,0 +1,13 @@
+[Unit]
+Description=SakthiDev Studio - Autonomous AI Software Engineer
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash "/home/sakthi/Documents/AI AGENT/run_service.sh"
+Restart=always
+RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target

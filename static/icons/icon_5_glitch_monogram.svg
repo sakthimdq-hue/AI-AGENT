@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="monoBg" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="60%" stop-color="#0b0f19"/>
+      <stop offset="100%" stop-color="#030712"/>
+    </radialGradient>
+    <linearGradient id="cyberChrome" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f6ff"/>
+      <stop offset="35%" stop-color="#ffffff"/>
+      <stop offset="70%" stop-color="#7000ff"/>
+      <stop offset="100%" stop-color="#ff007a"/>
+    </linearGradient>
+    <linearGradient id="goldAcc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <filter id="monoGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      @keyframes floatHex {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-8px) rotate(1deg); }
+      }
+      @keyframes glowPulseHex {
+        0%, 100% { filter: drop-shadow(0 0 15px rgba(0,246,255,0.5)); }
+        50% { filter: drop-shadow(0 0 35px rgba(255,0,122,0.8)); }
+      }
+      .hex-emblem { transform-origin: 256px 256px; animation: floatHex 3.2s ease-in-out infinite; }
+      .glowing-s { animation: glowPulseHex 2.4s ease-in-out infinite; }
+    </style>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#monoBg)" stroke="#1f2937" stroke-width="4"/>
+  <polygon points="256,60 416,152 416,336 256,428 96,336 96,152" fill="none" stroke="#374151" stroke-width="2" stroke-dasharray="16 16"/>
+  <g class="hex-emblem">
+    <!-- Outer 3D Hexagon Shield -->
+    <polygon points="256,80 396,160 396,320 256,400 116,320 116,160" fill="#030712" stroke="#00f6ff" stroke-width="4"/>
+    <polygon points="256,105 370,170 370,305 256,370 142,305 142,170" fill="none" stroke="#7000ff" stroke-width="2"/>
+    
+    <!-- Top Crown Spikes -->
+    <polygon points="256,45 270,75 242,75" fill="url(#goldAcc)"/>
+    <polygon points="215,60 225,85 205,85" fill="url(#goldAcc)"/>
+    <polygon points="297,60 307,85 287,85" fill="url(#goldAcc)"/>
+
+    <!-- Dynamic "S" Cyber Monogram Razor -->
+    <g class="glowing-s" filter="url(#monoGlow)">
+      <!-- Top Segment of S -->
+      <path d="M 320 170 
+               L 256 135 
+               L 192 170 
+               L 192 215 
+               L 288 245 
+               L 320 230 
+               Z" 
+            fill="url(#cyberChrome)"/>
+
+      <!-- Lower Segment of S -->
+      <path d="M 192 310 
+               L 256 345 
+               L 320 310 
+               L 320 265 
+               L 224 235 
+               L 192 250 
+               Z" 
+            fill="url(#cyberChrome)"/>
+
+      <!-- Center Dynamic Lightning Core -->
+      <polygon points="268,160 235,250 265,250 244,320 277,230 247,230" fill="#ffffff" filter="url(#monoGlow)"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="lionBg" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#0a1226"/>
+      <stop offset="50%" stop-color="#040814"/>
+      <stop offset="100%" stop-color="#010206"/>
+    </radialGradient>
+    <linearGradient id="goldCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb703"/>
+      <stop offset="50%" stop-color="#00f6ff"/>
+      <stop offset="100%" stop-color="#023e8a"/>
+    </linearGradient>
+    <linearGradient id="maneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f6ff"/>
+      <stop offset="100%" stop-color="#7209b7"/>
+    </linearGradient>
+    <filter id="lionGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      @keyframes lionEyeGlow {
+        0%, 100% { filter: drop-shadow(0 0 8px #00f6ff); opacity: 0.9; }
+        50% { filter: drop-shadow(0 0 20px #ffb703); opacity: 1; }
+      }
+      @keyframes manePulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+      }
+      .eyes { animation: lionEyeGlow 2.5s infinite ease-in-out; }
+      .lion-head { transform-origin: 256px 256px; animation: manePulse 3.5s infinite ease-in-out; }
+    </style>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#lionBg)" stroke="#1e293b" stroke-width="4"/>
+  <circle cx="256" cy="256" r="170" fill="none" stroke="#00f6ff" stroke-width="2" stroke-dasharray="12 12" opacity="0.3"/>
+  <g class="lion-head" filter="url(#lionGlow)">
+    <!-- Mane Outer Geometric Shards -->
+    <polygon points="256,70 290,120 256,135 222,120" fill="#ffb703"/>
+    <polygon points="300,110 370,120 330,170" fill="url(#maneGrad)"/>
+    <polygon points="212,110 142,120 182,170" fill="url(#maneGrad)"/>
+    <polygon points="370,135 425,185 365,215" fill="#00f6ff" opacity="0.85"/>
+    <polygon points="142,135 87,185 147,215" fill="#00f6ff" opacity="0.85"/>
+    <polygon points="415,200 445,270 375,270" fill="url(#maneGrad)"/>
+    <polygon points="97,200 67,270 137,270" fill="url(#maneGrad)"/>
+    <polygon points="420,290 390,360 345,310" fill="#7209b7"/>
+    <polygon points="92,290 122,360 167,310" fill="#7209b7"/>
+    <!-- Face Plates -->
+    <polygon points="256,145 320,185 305,250 256,260 207,250 192,185" fill="#0d1b2a" stroke="#00f6ff" stroke-width="3"/>
+    <!-- Forehead Tech Crest -->
+    <polygon points="256,155 285,185 256,220 227,185" fill="url(#goldCyan)"/>
+    <!-- Cheeks and Jaw -->
+    <polygon points="256,260 305,250 330,320 256,380 182,320 207,250" fill="#0b1329" stroke="#7209b7" stroke-width="3"/>
+    <!-- Glowing Cyber Eyes -->
+    <g class="eyes">
+      <polygon points="220,230 245,238 225,245" fill="#00f6ff"/>
+      <polygon points="292,230 267,238 287,245" fill="#00f6ff"/>
+      <circle cx="232" cy="238" r="4" fill="#ffffff"/>
+      <circle cx="280" cy="238" r="4" fill="#ffffff"/>
+    </g>
+    <!-- Nose & Muzzle -->
+    <polygon points="256,275 272,305 240,305" fill="#ffb703"/>
+    <line x1="256" y1="305" x2="256" y2="340" stroke="#00f6ff" stroke-width="3"/>
+    <line x1="235" y1="340" x2="277" y2="340" stroke="#00f6ff" stroke-width="3"/>
+    <!-- Whiskers / Data Lines -->
+    <line x1="220" y1="315" x2="160" y2="310" stroke="#00f6ff" stroke-width="2" opacity="0.8"/>
+    <line x1="220" y1="325" x2="150" y2="335" stroke="#00f6ff" stroke-width="2" opacity="0.8"/>
+    <line x1="292" y1="315" x2="352" y2="310" stroke="#00f6ff" stroke-width="2" opacity="0.8"/>
+    <line x1="292" y1="325" x2="362" y2="335" stroke="#00f6ff" stroke-width="2" opacity="0.8"/>
+    <!-- Chin Plate -->
+    <polygon points="256,350 275,375 237,375" fill="#ffb703"/>
+  </g>
+</svg>

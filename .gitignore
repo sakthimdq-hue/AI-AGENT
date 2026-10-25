@@ -1,0 +1,33 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+*.log
+server.log
+
+# Build Artifacts (.deb, .exe, .apk, zip packages)
+dist/
+deb_build/
+.apk_cache/
+*.deb
+*.apk
+*.zip
+
+# Secrets & Local Config
+config.json
+
+# Database
+memory.db
+*.db
+*.db-journal
+
+# Uploads
+uploads/*
+!uploads/.gitkeep

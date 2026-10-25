@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SakthiDev Studio - Icon Selector Cockpit</title>
+  <link rel="stylesheet" href="/static/app.css">
+  <style>
+    body {
+      background: radial-gradient(circle at 50% 20%, #0d1527 0%, #050814 60%, #010308 100%);
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header-banner {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      max-width: 650px;
+    }
+    .header-banner h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin: 0 0 0.5rem 0;
+      background: linear-gradient(135deg, #00f6ff, #a855f7, #ff007a);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-banner p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .icons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.75rem;
+      max-width: 1200px;
+      width: 100%;
+    }
+    .icon-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 1.75rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+    .icon-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(0, 246, 255, 0.4);
+      box-shadow: 0 16px 36px rgba(0, 246, 255, 0.18), 0 0 20px rgba(168, 85, 247, 0.15);
+    }
+    .icon-badge {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 99px;
+      background: rgba(0, 246, 255, 0.12);
+      color: #00f6ff;
+      border: 1px solid rgba(0, 246, 255, 0.3);
+      letter-spacing: 1px;
+    }
+    .icon-img-wrapper {
+      width: 110px;
+      height: 110px;
+      margin: 1rem 0 1.25rem 0;
+      position: relative;
+    }
+    .icon-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 16px rgba(0, 246, 255, 0.4));
+      transition: transform 0.3s ease;
+    }
+    .icon-card:hover .icon-img-wrapper img {
+      transform: scale(1.08);
+      filter: drop-shadow(0 0 24px rgba(255, 0, 122, 0.6));
+    }
+    .icon-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+    .icon-desc {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.45;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+    .btn-select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      background: linear-gradient(135deg, #00f6ff, #7000ff);
+      color: #000;
+      letter-spacing: 0.5px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px rgba(0, 246, 255, 0.3);
+    }
+    .btn-select:hover {
+      background: linear-gradient(135deg, #ffffff, #00f6ff);
+      box-shadow: 0 6px 22px rgba(0, 246, 255, 0.6);
+      transform: scale(1.02);
+    }
+    .btn-select.active {
+      background: #10b981;
+      color: #fff;
+      box-shadow: 0 0 18px rgba(16, 185, 129, 0.5);
+    }
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      background: rgba(16, 185, 129, 0.95);
+      color: #fff;
+      padding: 0.85rem 1.75rem;
+      border-radius: 99px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.35s ease;
+      z-index: 999;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .back-btn {
+      margin-top: 2rem;
+      color: #00f6ff;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-banner">
+    <h1>⚡ SAKTHIDEV STUDIO // ICON COCKPIT</h1>
+    <p>Machan, keela irukka 5 unique icons-la ungalukku pidichatha click pannunga. Udane active aagidum!</p>
+  </div>
+
+  <div class="icons-grid">
+    <!-- Option 1 -->
+    <div class="icon-card">
+      <span class="icon-badge">OPTION 1</span>
+      <div class="icon-img-wrapper">
+        <img src="/static/icons/icon_1_cyber_lion.svg" alt="Cyber Lion">
+      </div>
+      <div class="icon-name">Cyber Apex Lion</div>
+      <div class="icon-desc">Futuristic neural lion armor plates, glowing cyber whiskers & cyan optics. Symbol of leadership, speed & dominance.</div>
+      <button class="btn-select" onclick="chooseIcon('icon_1_cyber_lion.svg', this)">CHOOSE THIS ICON</button>
+    </div>
+
+    <!-- Option 2 -->
+    <div class="icon-card">
+      <span class="icon-badge">OPTION 2</span>
+      <div class="icon-img-wrapper">
+        <img src="/static/icons/icon_2_quantum_reactor.svg" alt="Quantum Reactor">
+      </div>
+      <div class="icon-name">Quantum Arc Reactor</div>
+      <div class="icon-desc">Dual gyroscopic orbital rings, glowing particle accelerator coils & radiant plasma singularity core. Iron Man vibes.</div>
+      <button class="btn-select" onclick="chooseIcon('icon_2_quantum_reactor.svg', this)">CHOOSE THIS ICON</button>
+    </div>
+
+    <!-- Option 3 -->
+    <div class="icon-card">
+      <span class="icon-badge">OPTION 3</span>
+      <div class="icon-img-wrapper">
+        <img src="/static/icons/icon_3_cyber_samurai.svg" alt="Cyber Samurai">
+      </div>
+      <div class="icon-name">Cyber Samurai Mask</div>
+      <div class="icon-desc">Japanese cyberpunk Oni helmet, neon antenna horns, glowing tactical crimson HUD visor & carbon cheek guards.</div>
+      <button class="btn-select" onclick="chooseIcon('icon_3_cyber_samurai.svg', this)">CHOOSE THIS ICON</button>
+    </div>
+
+    <!-- Option 4 -->
+    <div class="icon-card">
+      <span class="icon-badge">OPTION 4</span>
+      <div class="icon-img-wrapper">
+        <img src="/static/icons/icon_4_cyber_falcon.svg" alt="Cyber Falcon">
+      </div>
+      <div class="icon-name">Autonomous Cyber Falcon</div>
+      <div class="icon-desc">Angular geometric mechanical eagle wings, robotic cockpit & jet propulsion thruster exhaust. Represents autonomy.</div>
+      <button class="btn-select" onclick="chooseIcon('icon_4_cyber_falcon.svg', this)">CHOOSE THIS ICON</button>
+    </div>
+
+    <!-- Option 5 -->
+    <div class="icon-card">
+      <span class="icon-badge">OPTION 5</span>
+      <div class="icon-img-wrapper">
+        <img src="/static/icons/icon_5_glitch_monogram.svg" alt="Cyber Monogram">
+      </div>
+      <div class="icon-name">Royal Cyber "S" Hexagon</div>
+      <div class="icon-desc">3D faceted metallic hexagon shield with razor-sharp interlocking "S" monogram, gold crown crest & laser edge glow.</div>
+      <button class="btn-select" onclick="chooseIcon('icon_5_glitch_monogram.svg', this)">CHOOSE THIS ICON</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">⚡ Icon Activated! Refreshing Studio...</div>
+
+  <a href="/" class="back-btn">← Back to SakthiDev Studio</a>
+
+  <script>
+    async function chooseIcon(filename, btn) {
+      try {
+        btn.textContent = "ACTIVATING...";
+        const res = await fetch("/api/set-icon", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ icon: filename })
+        });
+        const data = await res.json();
+        if (data.status === "ok") {
+          document.querySelectorAll('.btn-select').forEach(b => {
+            b.classList.remove('active');
+            b.textContent = "CHOOSE THIS ICON";
+          });
+          btn.classList.add('active');
+          btn.textContent = "ACTIVE ✅";
+          const toast = document.getElementById('toast');
+          toast.classList.add('show');
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 1200);
+        }
+      } catch (e) {
+        alert("Error activating icon: " + e);
+        btn.textContent = "CHOOSE THIS ICON";
+      }
+    }
+  </script>
+</body>
+</html>
