@@ -71,6 +71,7 @@ def patch_windows_package(target_ip="192.168.0.115"):
         }
     });"""
 
+        hook_target = "(0, windowEvents_1.setupNativefierWindow)(windowOptions, mainWindow);"
         if "did-fail-load triggered:" in mjs:
             # Replace existing did-fail-load hook
             mjs = re.sub(r'\(0, windowEvents_1\.setupNativefierWindow\)\(windowOptions, mainWindow\);[\s\S]*?mainWindow\.webContents\.on\(\'did-fail-load\'[\s\S]*?\}\);', robust_hook, mjs)

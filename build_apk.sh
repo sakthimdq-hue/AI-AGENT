@@ -61,16 +61,24 @@ if [ ! -f "$KEYSTORE" ]; then
         -dname "CN=Sakthi, OU=Dev, O=SakthiDev Studio, L=Chennai, ST=TN, C=IN"
 fi
 
-# 5. Sign the APK with Java jarsigner
-echo "✍️ Signing APK with SHA-256 certificate..."
-jarsigner -sigalg SHA256withRSA -digestalg SHA-256 \
-    -keystore "$KEYSTORE" -storepass "$PASS" \
-    "$OUTPUT_APK" "$ALIAS"
+# 5. Download uber-apk-signer if missing (Provides APK Signature Scheme v2/v3 + zipalign for Android 11+)
+UBER_SIGNER="$APK_WORK_DIR/uber-apk-signer.jar"
+if [ ! -f "$UBER_SIGNER" ]; then
+    echo "📥 Fetching modern APK v2/v3 signing engine..."
+    curl -s -L "https://github.com/patrickfav/uber-apk-signer/releases/download/v1.3.0/uber-apk-signer-1.3.0.jar" -o "$UBER_SIGNER"
+fi
 
-# 6. Verify signature
-echo "🧪 Verifying Android APK signature..."
-jarsigner -verify "$OUTPUT_APK" >/dev/null 2>&1
-echo "✅ APK Signature Verified!"
+# 6. Sign and zipalign APK with v1, v2, v3 cryptographic scheme
+echo "✍️ Signing & zip-aligning APK with SHA-256 (v1, v2, v3 signature schemes)..."
+java -jar "$UBER_SIGNER" \
+    --apks "$OUTPUT_APK" \
+    --ks "$KEYSTORE" \
+    --ksAlias "$ALIAS" \
+    --ksPass "$PASS" \
+    --ksKeyPass "$PASS" \
+    --overwrite
+
+echo "✅ APK Signature Verified (v2, v3 + zipalign)!"
 
 cd "$PROJECT_DIR"
 
