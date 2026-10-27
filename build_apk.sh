@@ -37,12 +37,18 @@ fi
 cp "$TEMPLATE_APK" "$OUTPUT_APK"
 
 # 2. Extract and customize configuration
+mkdir -p "$APK_WORK_DIR/assets/web"
 unzip -p "$TEMPLATE_APK" assets/swv.properties > "$APK_WORK_DIR/assets/swv.properties"
 sed -i "s|app\.url=.*|app.url=$TARGET_URL|g" "$APK_WORK_DIR/assets/swv.properties"
+sed -i "s|security\.verify\.ssl=true|security.verify.ssl=false|g" "$APK_WORK_DIR/assets/swv.properties"
 
-# 3. Update APK with modified properties
+# Replace offline and error pages with SakthiDev Studio Cyber Connect Portal
+cp "$PROJECT_DIR/static/connect.html" "$APK_WORK_DIR/assets/web/offline.html"
+cp "$PROJECT_DIR/static/connect.html" "$APK_WORK_DIR/assets/web/error.html"
+
+# 3. Update APK with modified properties and connection portal
 cd "$APK_WORK_DIR"
-zip -q -u "$OUTPUT_APK" assets/swv.properties
+zip -q -u "$OUTPUT_APK" assets/swv.properties assets/web/offline.html assets/web/error.html
 # Remove old template signatures
 zip -q -d "$OUTPUT_APK" "META-INF/*" || true
 
